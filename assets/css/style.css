@@ -633,6 +633,10 @@ h1 {
   opacity: 1 !important;
   transform: none !important;
 }
+.video-player:focus:hover {
+  filter: brightness(1) !important;
+  opacity: 1 !important;
+}
 .video-player * {
   transition: none !important;
 }
