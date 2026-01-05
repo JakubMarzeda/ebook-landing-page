@@ -14,42 +14,6 @@
       href="./assets/img/logo.png"
       type="image/x-icon"
     />
-    <!-- Meta Pixel Code -->
-    <script>
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod
-            ? n.callMethod.apply(n, arguments)
-            : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = "2.0";
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(
-        window,
-        document,
-        "script",
-        "https://connect.facebook.net/en_US/fbevents.js"
-      );
-      fbq("init", "4299488190280825");
-      fbq("track", "PageView");
-    </script>
-    <noscript
-      ><img
-        height="1"
-        width="1"
-        style="display: none"
-        src="https://www.facebook.com/tr?id=4299488190280825&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
   </head>
 
   <body>
@@ -598,6 +562,101 @@
 
         updateSlider();
         updateButtons();
+      })();
+    </script>
+
+    <div id="cookieConsent" class="cookie-consent" style="display: none;">
+      <div class="cookie-consent-overlay"></div>
+      <div class="cookie-consent-content">
+        <h3 class="cookie-consent-title">Witaj na naszej stronie 👋</h3>
+        <p class="cookie-consent-text">
+          Ciastka 🍪 pozwalają nam bezpiecznie obsługiwać płatności. Jednak potrzebujemy na nie Twojej zgody. Chronimy też Twoje dane osobowe, zobacz
+          <a
+            target="_blank"
+            href="https://docs.google.com/document/d/1dTrQ_Ag-uiB16fZ_CdI1ZaM-PPp4JuLv41KWJh8S5Wc/edit?usp=sharing"
+            class="cookie-consent-link"
+            >politykę cookies</a
+          >.
+        </p>
+        <p class="cookie-consent-note">
+          Klikając jeden z przycisków poniżej, wyrażasz lub odrzucasz zgodę na wykorzystanie plików cookies.
+        </p>
+        <div class="cookie-consent-buttons">
+          <button id="cookieConsentBtn" class="cookie-consent-btn cookie-consent-btn-accept">
+            ZGADZAM SIĘ
+          </button>
+          <button id="cookieRejectBtn" class="cookie-consent-btn cookie-consent-btn-reject">
+            ODRZUĆ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const cookieConsent = document.getElementById("cookieConsent");
+        const cookieConsentBtn = document.getElementById("cookieConsentBtn");
+        const cookieRejectBtn = document.getElementById("cookieRejectBtn");
+        const consentKey = "cookieConsentAccepted";
+        const pixelId = "4299488190280825";
+
+        function loadMetaPixel() {
+          if (window.fbq) return;
+
+          !(function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+              n.callMethod
+                ? n.callMethod.apply(n, arguments)
+                : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = "2.0";
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s);
+          })(
+            window,
+            document,
+            "script",
+            "https://connect.facebook.net/en_US/fbevents.js"
+          );
+          fbq("init", pixelId);
+          fbq("track", "PageView");
+        }
+
+        function hideCookieConsent() {
+          cookieConsent.style.display = "none";
+          document.body.style.overflow = "";
+        }
+
+        const consent = localStorage.getItem(consentKey);
+        if (consent === "true") {
+          loadMetaPixel();
+        } else if (!consent) {
+          cookieConsent.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        }
+
+        if (cookieConsentBtn) {
+          cookieConsentBtn.addEventListener("click", function () {
+            localStorage.setItem(consentKey, "true");
+            loadMetaPixel();
+            hideCookieConsent();
+          });
+        }
+
+        if (cookieRejectBtn) {
+          cookieRejectBtn.addEventListener("click", function () {
+            localStorage.setItem(consentKey, "rejected");
+            hideCookieConsent();
+          });
+        }
       })();
     </script>
   </body>
