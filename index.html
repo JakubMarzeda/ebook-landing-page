@@ -579,16 +579,11 @@
           >.
         </p>
         <p class="cookie-consent-note">
-          Klikając jeden z przycisków poniżej, wyrażasz lub odrzucasz zgodę na wykorzystanie plików cookies.
+          Klikając przycisk poniżej oświadczasz, że wyrażasz zgodę na wykorzystanie plików cookies.
         </p>
-        <div class="cookie-consent-buttons">
-          <button id="cookieConsentBtn" class="cookie-consent-btn cookie-consent-btn-accept">
-            ZGADZAM SIĘ
-          </button>
-          <button id="cookieRejectBtn" class="cookie-consent-btn cookie-consent-btn-reject">
-            ODRZUĆ
-          </button>
-        </div>
+        <button id="cookieConsentBtn" class="cookie-consent-btn cookie-consent-btn-accept">
+          ZGADZAM SIĘ
+        </button>
       </div>
     </div>
 
@@ -596,7 +591,6 @@
       (function () {
         const cookieConsent = document.getElementById("cookieConsent");
         const cookieConsentBtn = document.getElementById("cookieConsentBtn");
-        const cookieRejectBtn = document.getElementById("cookieRejectBtn");
         const consentKey = "cookieConsentAccepted";
         const pixelId = "4299488190280825";
 
@@ -638,7 +632,7 @@
         const consent = localStorage.getItem(consentKey);
         if (consent === "true") {
           loadMetaPixel();
-        } else if (!consent) {
+        } else {
           cookieConsent.style.display = "flex";
           document.body.style.overflow = "hidden";
         }
@@ -647,13 +641,6 @@
           cookieConsentBtn.addEventListener("click", function () {
             localStorage.setItem(consentKey, "true");
             loadMetaPixel();
-            hideCookieConsent();
-          });
-        }
-
-        if (cookieRejectBtn) {
-          cookieRejectBtn.addEventListener("click", function () {
-            localStorage.setItem(consentKey, "rejected");
             hideCookieConsent();
           });
         }
